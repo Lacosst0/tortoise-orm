@@ -15,6 +15,12 @@ class JSONContains(PypikaFunction):  # type: ignore
         super(JSONContains, self).__init__("JSON_CONTAINS", column_name, target_list)
 
 
+class JSONContainsPath(PypikaFunction):  # type: ignore
+    def __init__(self, column_name: Term, target_list: Term):
+        # multiple paths search isn't used, because PostgreSQL doesn't have it (but has complex search) 
+        super(JSONContainsPath, self).__init__("JSON_CONTAINS_PATH", column_name, "one", "$." + target_list)
+
+
 class JSONExtract(PypikaFunction):  # type: ignore
     def __init__(self, column_name: Term, query_list: List[Term]):
         query = self.make_query(query_list)
@@ -37,6 +43,10 @@ class JSONExtract(PypikaFunction):  # type: ignore
 
 def mysql_json_contains(field: Term, value: str) -> Criterion:
     return JSONContains(field, ValueWrapper(value))
+
+
+def mysql_json_contains_path(field: Term, value: str) -> Criterion:
+    return JSONContainsPath(field, ValueWrapper(value))
 
 
 def mysql_json_contained_by(field: Term, value_str: str) -> Criterion:
