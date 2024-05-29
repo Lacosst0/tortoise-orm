@@ -16,9 +16,10 @@ class JSONContains(PypikaFunction):  # type: ignore
 
 
 class JSONContainsPath(PypikaFunction):  # type: ignore
-    def __init__(self, column_name: Term, target_list: Term):
-        # multiple paths search isn't used, because PostgreSQL doesn't have it (but has complex search) 
-        super(JSONContainsPath, self).__init__("JSON_CONTAINS_PATH", column_name, "one", "$." + target_list)
+    def __init__(self, column_name: Term, value: Term):
+        # multiple paths search isn't used, because PostgreSQL doesn't have it (but has complex search)
+        value = "$." + value
+        super(JSONContainsPath, self).__init__("JSON_CONTAINS_PATH", column_name, "one", value)
 
 
 class JSONExtract(PypikaFunction):  # type: ignore
