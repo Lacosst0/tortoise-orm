@@ -190,6 +190,10 @@ def json_contains(field: Term, value: str) -> Criterion:
     # will be override in each executor
     pass
 
+def json_contains_path(field: Term, value: str) -> Criterion:
+    # will be override in each executor
+    pass
+
 
 def json_contained_by(field: Term, value: str) -> Criterion:
     # will be override in each executor
@@ -315,6 +319,11 @@ def get_json_filter(field_name: str, source_field: str):
             "field": actual_field_name,
             "source_field": source_field,
             "operator": json_contains,
+        },
+        f"{field_name}__contains_path": {
+            "field": actual_field_name,
+            "source_field": source_field,
+            "operator": json_contains_path,
         },
         f"{field_name}__contained_by": {
             "field": actual_field_name,
