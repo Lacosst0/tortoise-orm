@@ -8,6 +8,7 @@ from tortoise.backends.base.executor import BaseExecutor
 from tortoise.contrib.mysql.json_functions import (
     mysql_json_contained_by,
     mysql_json_contains,
+    mysql_json_contains_path,
     mysql_json_filter,
 )
 from tortoise.contrib.mysql.search import SearchCriterion
@@ -24,6 +25,7 @@ from tortoise.filters import (
     insensitive_starts_with,
     json_contained_by,
     json_contains,
+    json_contains_path,
     json_filter,
     search,
     starts_with,
@@ -106,6 +108,7 @@ class MySQLExecutor(BaseExecutor):
         insensitive_ends_with: mysql_insensitive_ends_with,
         search: mysql_search,
         json_contains: mysql_json_contains,
+        json_contains_path: mysql_json_contains_path,
         json_contained_by: mysql_json_contained_by,
         json_filter: mysql_json_filter,
     }
