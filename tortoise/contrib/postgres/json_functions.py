@@ -12,6 +12,15 @@ def postgres_json_contains(field: Term, value: str) -> Criterion:
     return BasicCriterion(JSONOperators.CONTAINS, field, ValueWrapper(value))
 
 
+class JSONPathExists(Function):
+    def __init__(self, field: F, value: str):
+        super(JSONPathExists, self).__init__("jsonb_path_exists", field, "$." + value)
+
+
+def postgres_json_path_exists(field: Term, value: str) -> Criterion:
+    return JSONPathExists(field, ValueWrapper(value))
+
+
 def postgres_json_contained_by(field: Term, value: str) -> Criterion:
     return BasicCriterion(JSONOperators.CONTAINED_BY, field, ValueWrapper(value))
 
