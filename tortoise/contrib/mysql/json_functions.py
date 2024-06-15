@@ -1,7 +1,6 @@
 import json
 import operator
 from typing import Any, Dict, List
-from string import digits
 
 from pypika.functions import Cast
 from pypika.terms import Criterion
@@ -47,9 +46,7 @@ def mysql_json_contains(field: Term, value: str) -> Criterion:
 
 
 def mysql_json_contains_path(field: Term, value: str) -> Criterion:
-    if value[0] in digits:
-        value = f'"{value}"'
-    value = "$." + value
+    value = "$." + f'"{value}"'
     return JSONContainsPath(field, ValueWrapper(value))
 
 
