@@ -10,7 +10,7 @@ from tortoise.backends.base.executor import BaseExecutor
 from tortoise.contrib.postgres.json_functions import (
     postgres_json_contained_by,
     postgres_json_contains,
-    postgres_json_path_exists
+    postgres_json_path_exists,
     postgres_json_filter,
 )
 from tortoise.contrib.postgres.search import SearchCriterion
