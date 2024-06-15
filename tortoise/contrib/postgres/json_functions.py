@@ -3,6 +3,7 @@ import operator
 from typing import Any, Callable, Dict, List
 
 from pypika.enums import JSONOperators
+from pypika.terms import Function as PypikaFunction
 from pypika.terms import BasicCriterion, Criterion, Term, ValueWrapper
 
 from tortoise.filters import is_null, not_equal, not_null
@@ -12,13 +13,13 @@ def postgres_json_contains(field: Term, value: str) -> Criterion:
     return BasicCriterion(JSONOperators.CONTAINS, field, ValueWrapper(value))
 
 
-class JSONPathExists(Function):
+class JSONPathExists(PypikaFunction):
     def __init__(self, field: Term, value: Term):
         super(JSONPathExists, self).__init__("jsonb_path_exists", field, value)
 
 
 def postgres_json_path_exists(field: Term, value: str) -> Criterion:
-    value = "$." + value
+    value = "$." + f'"{value}"'
     return JSONPathExists(field, ValueWrapper(value))
 
 
