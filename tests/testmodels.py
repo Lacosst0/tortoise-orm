@@ -524,8 +524,8 @@ class Employee(Model):
             "{}{} (to: {}) (from: {})".format(
                 level * "  ",
                 self,
-                ", ".join(sorted([str(val) async for val in self.talks_to])),  # noqa
-                ", ".join(sorted([str(val) async for val in self.gets_talked_to])),  # noqa
+                ", ".join(sorted([str(val) async for val in self.talks_to])),
+                ", ".join(sorted([str(val) async for val in self.gets_talked_to])),
             )
         ]
         async for member in self.team_members:
@@ -729,6 +729,11 @@ class DefaultOrderedDesc(Model):
 
     class Meta:
         ordering = ["-one"]
+
+
+class SourceFieldPk(Model):
+    id = fields.IntField(primary_key=True, source_field="counter")
+    name = fields.CharField(max_length=255)
 
 
 class DefaultOrderedInvalid(Model):
